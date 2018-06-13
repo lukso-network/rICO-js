@@ -21,10 +21,10 @@ The base idea is as follows:
 
 ## Manual testing
 
-Simple load the test.html in your browser and create a new `RICO` instance with a certain ICT/ETH ratio:
+Simple load the `test.html` in your browser, load the console and create a new `RICO` instance with a certain ICT/ETH ratio:
 
 ```js
-var rico = new RICO(1);
+var rico = new RICO(1); // ETH/ ICT ratio: 1; Hardcoded: total ICT 10000, total blocks in RICO: 1000
 ```
 
 And run test manually by committing from and refunding from accounts:
@@ -58,7 +58,7 @@ rico.commit(accounts[0], 100);
 // check the current status
 rico.log();
 
-// pass time (total blocks after rico is over: 1000)
+// pass time
 rico.currentBlock = 500;
 
 // check the current status
