@@ -4,7 +4,9 @@ var assert = chai.assert;
 
 
 
-
+sanityCheck = function(rico){
+    assert.isTrue((rico.investorETH + rico.projectETH - rico.projectETHWithdrawn) === rico.REALETH ,'Sanity check, ETH doesn\'t add up!');
+}
 
 // rico.commit(1, 130);
 // rico.commit(2, 180);
@@ -66,11 +68,10 @@ describe('Refundable ICO', function() {
             assert.isTrue(accounts[1].ICT / ethIctRatio === 100);
             assert.isTrue(accounts[2].ICT / ethIctRatio === 500);
 
-            assert.isTrue((rico.investorETH + rico.projectETH - rico.projectETHWithdrawn) === rico.REALETH ,'Sanity check');
+            sanityCheck(rico);
 
             rico.refund(accounts[1], 50 * ethIctRatio);
             rico.refund(accounts[2], 500 * ethIctRatio);
-console.log(accounts[2])
 
             assert.isTrue(accounts[1].ICT / ethIctRatio === 50);
             assert.isTrue(accounts[1].ICTL === 0);
@@ -80,12 +81,27 @@ console.log(accounts[2])
             assert.isTrue(accounts[2].ICTL === 0);
             assert.isTrue(accounts[2].ETH === 1000);
 
-            assert.isTrue((rico.investorETH + rico.projectETH - rico.projectETHWithdrawn) === rico.REALETH ,'Sanity check');
+            sanityCheck(rico);
 
-            rico.commit(accounts[0], 100);
             rico.commit(accounts[1], 100);
+            rico.commit(accounts[2], 100);
             rico.commit(accounts[3], 5000);
 
+            rico.refund(accounts[3], 50);
+
+
+            assert.isTrue(accounts[1].ETH === 50);
+            assert.isTrue(accounts[2].ETH === 900);
+            assert.isTrue(accounts[3].ETH === 3050);
+            assert.isTrue(accounts[1].ICT / ethIctRatio === 150);
+            assert.isTrue(accounts[2].ICT / ethIctRatio === 100);
+            assert.isTrue(accounts[3].ICT / ethIctRatio === 4950);
+            assert.isTrue(accounts[1].ICTL === 0);
+            assert.isTrue(accounts[2].ICTL === 0);
+            assert.isTrue(accounts[3].ICTL === 0);
+
+
+            sanityCheck(rico);
 
         });
     });
