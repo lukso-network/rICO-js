@@ -276,7 +276,7 @@ describe('Refundable ICO', function() {
             });
 
 
-            it('mitterm immediate loss', function() {
+            it('mid-term immediate loss', function() {
 
                 // time didnt passed
                 rico.blockNumber = 300;
