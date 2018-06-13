@@ -82,6 +82,10 @@ console.log(accounts[2])
 
             assert.isTrue((rico.investorETH + rico.projectETH - rico.projectETHWithdrawn) === rico.REALETH ,'Sanity check');
 
+            rico.commit(accounts[0], 100);
+            rico.commit(accounts[1], 100);
+            rico.commit(accounts[3], 5000);
+
 
         });
     });
