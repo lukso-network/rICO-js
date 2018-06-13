@@ -104,5 +104,16 @@ describe('Refundable ICO', function() {
             sanityCheck(rico);
 
         });
+
+        it('distribution phase', function() {
+
+            // time passed
+            rico.blockNumber += 50;
+
+            rico.refund(accounts[3], 100);
+
+            console.log(accounts[3]);
+
+        });
     });
 });

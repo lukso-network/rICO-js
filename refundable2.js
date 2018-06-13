@@ -47,7 +47,7 @@ RICO.prototype._allocateFunds = function() {
 
 
     var blockPassed = this.blockNumber - this.flowLastBlock;
-    var transferETH = blockPassed * this.flow;
+    var transferETH = Math.floor(blockPassed * this.flow);
 
     this.investorETH -= transferETH;
     this.projectETH += transferETH;
@@ -97,11 +97,12 @@ RICO.prototype.refund = function(account, ict) {
     console.log('ratio', ratio);
 
     // calc the ETH refund amount
-    var eth = ict / this.ethIctRatio * ratio;
+    var eth = Math.floor(ict / this.ethIctRatio * ratio);
+    var ictl = Math.floor(ict * (1 - ratio));
 
     // update accounts balance
     account.ICT -= ict;
-    account.ICTL += ict * (1 - ratio);
+    account.ICTL += ictl;
     account.ETH += eth;
 
 
