@@ -24,7 +24,8 @@ The base idea is as follows:
 Simple load the `test.html` in your browser, load the console and create a new `RICO` instance with a certain ICT/ETH ratio:
 
 ```js
-var rico = new RICO(1); // ETH/ ICT ratio: 1; Hardcoded: total ICT 10000, total blocks in RICO: 1000
+var rico = new RICO(1); // ETH/ ICT ratio: 1
+// Hardcoded: total ICT 10000, total blocks in RICO: 1000
 ```
 
 And run test manually by committing from and refunding from accounts:
