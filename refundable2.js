@@ -1,9 +1,10 @@
 
-function RICO(ratio){
+function RICO(ratio, dontLog){
     // constants
+    this.dontLog = dontLog;
     this.ethIctRatio = ratio || 1;
-    this.totalICT = 10000;
-    this.totalETH = this.ethIctRatio * this.totalICT;
+    this.totalETH = 10000;
+    this.totalICT = this.totalETH * this.ethIctRatio;
     this.totalBlocks = 1000; // duration in  blocks of the RICO
 
     this.blockNumber = 0; // since start of the RICO
@@ -14,6 +15,7 @@ function RICO(ratio){
     this.REALETH = 0;
 
     this.projectETHWithdrawn = 0;
+    this.ethSpaceLeft = this.totalETH;
 
 
     // flow control
@@ -26,17 +28,19 @@ RICO.prototype.log = function() {
     // allocate funds to project before
     this._allocateFunds();
 
-
-    console.log('--------');
-    console.log('blockNumber: ', this.blockNumber);
-    console.log('Current Flow: ', this.flow);
-    console.log('investorETH: ', this.investorETH);
-    console.log('projectETH: ', this.projectETH);
-    console.log('available for project: ', this.projectETH - this.projectETHWithdrawn);
-    console.log('ETH in RICO: ', this.REALETH);
-    // console.log('ETH in Project: ', project.ETH);
-    console.log('Adds up: ', (this.investorETH + this.projectETH - this.projectETHWithdrawn) === this.REALETH);
-    console.log('--------');
+    if (!this.dontLog) {
+        console.log('--------');
+        console.log('blockNumber: ', this.blockNumber);
+        console.log('Current Flow: ', this.flow);
+        console.log('investorETH: ', this.investorETH);
+        console.log('projectETH: ', this.projectETH);
+        console.log('available for project: ', this.projectETH - this.projectETHWithdrawn);
+        console.log('ETH in RICO: ', this.REALETH);
+        console.log('ETH space left in RICO: ', this.ethSpaceLeft);
+        // console.log('ETH in Project: ', project.ETH);
+        console.log('Adds up? ', (this.investorETH + this.projectETH - this.projectETHWithdrawn) === this.REALETH);
+        console.log('--------');
+    }
 }
 
 
@@ -51,6 +55,8 @@ RICO.prototype._allocateFunds = function() {
 
     this.investorETH -= transferETH;
     this.projectETH += transferETH;
+
+    this.ethSpaceLeft = this.totalETH - (this.investorETH + this.projectETH);
 
     // set the last flow block number
     this.flowLastBlock = this.blockNumber;
@@ -94,7 +100,7 @@ RICO.prototype.refund = function(account, ict) {
 
     // calculate the current ratio
     var ratio = 1 - this.blockNumber / this.totalBlocks;
-    console.log('ratio', ratio);
+    // console.log('ratio', ratio);
 
     // calc the ETH refund amount
     var eth = Math.floor(ict / this.ethIctRatio * ratio);
