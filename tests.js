@@ -303,6 +303,24 @@ describe('Refundable ICO', function() {
 
             });
 
+            it('check at 50%', function() {
+
+                // time didnt passed
+                rico.blockNumber = 500;
+
+                var ratio = rico.blockNumber / rico.totalBlocks;
+
+                // refund all tokens
+                rico.refund(accounts[2], accounts[2].ICT);
+
+                assert.equal(accounts[2].ICTL, 2000 * ethIctRatio / 2);
+                assert.equal(accounts[2].ETH, 2000 * ethIctRatio / 2);
+                console.log('GGGG', accounts[2], ethIctRatio)
+
+                sanityCheck(rico);
+
+            });
+
 
             it('over', function() {
 
@@ -311,10 +329,10 @@ describe('Refundable ICO', function() {
 
                 rico.log();
 
-                assert.equal(rico.flow, 9.92142857142857);
+                assert.equal(rico.flow, 7.922);
                 assert.equal(rico.investorETH, 0);
-                assert.equal(rico.projectETH, 9940);
-                assert.equal(rico.REALETH, 9940);
+                assert.equal(rico.projectETH, 8940);
+                assert.equal(rico.REALETH, 8940);
 
                 sanityCheck(rico);
 
