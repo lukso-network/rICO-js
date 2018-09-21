@@ -315,7 +315,6 @@ describe('Refundable ICO', function() {
 
                 assert.equal(accounts[2].ICTL, 2000 * ethIctRatio / 2);
                 assert.equal(accounts[2].ETH, 2000 * ethIctRatio / 2);
-                console.log('GGGG', accounts[2], ethIctRatio)
 
                 sanityCheck(rico);
 
