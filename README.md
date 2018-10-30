@@ -1,11 +1,11 @@
-# Refundable ICO (RICO) prototype
+# Refundable ICO (RICO) Prototype
 
 This repository exists to test the refundable ICO idea,
 described in the technical white paper for the LUKSO Blockchain.
 
 The base idea is as follows:
 
-1. Allocation phase: Investor contribute ETH and receive ICO commitment tokens (ICT) to prrof their participation.
+1. Allocation phase: Investor contribute ETH and receive ICO commitment tokens (ICT) to proof their participation.
 
 
 - Investors can refund any time by sending back the ICT, and will recieve back their ETH.
@@ -19,7 +19,7 @@ The base idea is as follows:
 - The ratio of refund is always based on time passed inside the distribution period, meaning if an investor joins late, he will immediately only be able to refund parts of their investment.
 
 
-## Manual testing
+## Manual Testing
 
 Simple load the `test.html` in your browser, load the console and create a new `RICO` instance with a certain ICT/ETH ratio:
 
@@ -73,7 +73,7 @@ rico.log();
 ```
 
 
-## Run tests 
+## Run Tests 
 
 Go into your repository and run:
 
