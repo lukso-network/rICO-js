@@ -4,7 +4,7 @@ function RICO(ratio, dontLog){
     this.dontLog = dontLog;
     this.ethIctRatio = ratio || 1;
     this.totalETH = 10000;
-    this.totalICT = this.totalETH * this.ethIctRatio;
+    this.totalLIA = this.totalETH * this.ethIctRatio;
     this.totalBlocks = 1000; // duration in  blocks of the RICO
 
     this.blockNumber = 0; // since start of the RICO
@@ -77,7 +77,7 @@ RICO.prototype.commit = function(account, eth) {
 
         // update accounts balance
         account.ETH -= eth;
-        account.ICT += eth * this.ethIctRatio;
+        account.LIA += eth * this.ethIctRatio;
 
         // update internal balances
         this.REALETH += eth;
@@ -95,7 +95,7 @@ RICO.prototype.refund = function(account, ict) {
     this._allocateFunds();
 
     // CHECK that his account has the balance
-    if (account.ICT < ict) return;
+    if (account.LIA < ict) return;
 
 
     // calculate the current ratio
@@ -107,8 +107,8 @@ RICO.prototype.refund = function(account, ict) {
     var ictl = Math.floor(ict * (1 - ratio));
 
     // update accounts balance
-    account.ICT -= ict;
-    account.ICTL += ictl;
+    account.LIA -= ict;
+    account.LIAL += ictl;
     account.ETH += eth;
 
 

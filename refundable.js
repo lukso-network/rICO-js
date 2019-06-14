@@ -4,7 +4,7 @@ function RICO(){
     this.currentBlock = 0;
     this.totalBlocks = 1000;
     this.ethRatio = 1;
-    this.totalICT = 20000000;
+    this.totalLIA = 20000000;
     this.accounts = {};
     this.project = {
         ETH: 0
@@ -61,24 +61,24 @@ RICO.prototype._calcProjectETH = function() {
 RICO.prototype.commit = function(account, eth) {
 
 
-    if (this.totalICT - (eth * this.ethRatio) > 0) {
+    if (this.totalLIA - (eth * this.ethRatio) > 0) {
 
         this.accounts[account] = {
-            ICT: eth * this.ethRatio,
-            lockedICT: 0,
+            LIA: eth * this.ethRatio,
+            lockedLIA: 0,
             committedETH: eth,
         };
 
         // update balances
-        this.totalICT -= this.accounts[account].ICT;
+        this.totalLIA -= this.accounts[account].LIA;
         this.ETH += eth;
 
         // TODO: split here already by the current ratio to project and investor???
         this.investorETH += eth;
 
         // log
-        console.log('Account '+account+' ICT ', this.accounts[account].ICT);
-        console.log('total ICT available', this.totalICT);
+        console.log('Account '+account+' LIA ', this.accounts[account].LIA);
+        console.log('total LIA available', this.totalLIA);
     }
 
     // update project eth balance
@@ -92,7 +92,7 @@ RICO.prototype.refund = function(account, sentIct) {
     // update project eth balance
     this._calcProjectETH();
 
-    if (this.accounts[account].ICT >= ict) {
+    if (this.accounts[account].LIA >= ict) {
 
         
 

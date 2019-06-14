@@ -37,20 +37,20 @@ describe('Refundable ICO', function() {
 
         var accounts = [{
             ETH: 100,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 200,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 1000,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 8000,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         }];
 
 
@@ -67,21 +67,21 @@ describe('Refundable ICO', function() {
                 assert.equal(accounts[0].ETH, 0);
                 assert.equal(accounts[1].ETH, 100);
                 assert.equal(accounts[2].ETH, 500);
-                assert.equal(accounts[0].ICT / ethIctRatio, 100);
-                assert.equal(accounts[1].ICT / ethIctRatio, 100);
-                assert.equal(accounts[2].ICT / ethIctRatio, 500);
+                assert.equal(accounts[0].LIA / ethIctRatio, 100);
+                assert.equal(accounts[1].LIA / ethIctRatio, 100);
+                assert.equal(accounts[2].LIA / ethIctRatio, 500);
 
                 sanityCheck(rico);
 
                 rico.refund(accounts[1], 50 * ethIctRatio);
                 rico.refund(accounts[2], 500 * ethIctRatio);
 
-                assert.equal(accounts[1].ICT / ethIctRatio, 50);
-                assert.equal(accounts[1].ICTL, 0);
+                assert.equal(accounts[1].LIA / ethIctRatio, 50);
+                assert.equal(accounts[1].LIAL, 0);
                 assert.equal(accounts[1].ETH, 150);
                 
-                assert.equal(accounts[2].ICT, 0);
-                assert.equal(accounts[2].ICTL, 0);
+                assert.equal(accounts[2].LIA, 0);
+                assert.equal(accounts[2].LIAL, 0);
                 assert.equal(accounts[2].ETH, 1000);
 
                 sanityCheck(rico);
@@ -96,12 +96,12 @@ describe('Refundable ICO', function() {
                 assert.equal(accounts[1].ETH, 50);
                 assert.equal(accounts[2].ETH, 900);
                 assert.equal(accounts[3].ETH, 3050);
-                assert.equal(accounts[1].ICT / ethIctRatio, 150);
-                assert.equal(accounts[2].ICT / ethIctRatio, 100);
-                assert.equal(accounts[3].ICT / ethIctRatio, 4950);
-                assert.equal(accounts[1].ICTL, 0);
-                assert.equal(accounts[2].ICTL, 0);
-                assert.equal(accounts[3].ICTL, 0);
+                assert.equal(accounts[1].LIA / ethIctRatio, 150);
+                assert.equal(accounts[2].LIA / ethIctRatio, 100);
+                assert.equal(accounts[3].LIA / ethIctRatio, 4950);
+                assert.equal(accounts[1].LIAL, 0);
+                assert.equal(accounts[2].LIAL, 0);
+                assert.equal(accounts[3].LIAL, 0);
 
 
                 sanityCheck(rico);
@@ -193,20 +193,20 @@ describe('Refundable ICO', function() {
 
         var accounts = [{
             ETH: 100,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 200,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 2000,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         },{
             ETH: 8000,
-            ICT: 0,
-            ICTL: 0
+            LIA: 0,
+            LIAL: 0
         }];
 
 
@@ -224,10 +224,10 @@ describe('Refundable ICO', function() {
                 assert.equal(accounts[1].ETH, 100);
                 assert.equal(accounts[2].ETH, 0);
                 assert.equal(accounts[3].ETH, 200);
-                assert.equal(accounts[0].ICT / ethIctRatio, 100);
-                assert.equal(accounts[1].ICT / ethIctRatio, 100);
-                assert.equal(accounts[2].ICT / ethIctRatio, 2000);
-                assert.equal(accounts[3].ICT / ethIctRatio, 7800);
+                assert.equal(accounts[0].LIA / ethIctRatio, 100);
+                assert.equal(accounts[1].LIA / ethIctRatio, 100);
+                assert.equal(accounts[2].LIA / ethIctRatio, 2000);
+                assert.equal(accounts[3].LIA / ethIctRatio, 7800);
 
                 sanityCheck(rico);
             });
@@ -285,19 +285,19 @@ describe('Refundable ICO', function() {
 
 
                 assert.equal(accounts[1].ETH, 100);
-                assert.equal(accounts[1].ICT, 100);
+                assert.equal(accounts[1].LIA, 100);
 
                 rico.commit(accounts[1], 50);
 
                 assert.equal(accounts[1].ETH, 50);
-                assert.equal(accounts[1].ICT, 150);
+                assert.equal(accounts[1].LIA, 150);
 
 
                 rico.refund(accounts[1], 50 * ethIctRatio);
 
                 assert.equal(accounts[1].ETH, 50 + 50 * (1 - ratio)); // 70% back of 50
-                assert.equal(accounts[1].ICT, 100);
-                assert.equal(accounts[1].ICTL, 50 * ethIctRatio * ratio); // keeps 30% of 50 *
+                assert.equal(accounts[1].LIA, 100);
+                assert.equal(accounts[1].LIAL, 50 * ethIctRatio * ratio); // keeps 30% of 50 *
 
                 sanityCheck(rico);
 
@@ -311,9 +311,9 @@ describe('Refundable ICO', function() {
                 var ratio = rico.blockNumber / rico.totalBlocks;
 
                 // refund all tokens
-                rico.refund(accounts[2], accounts[2].ICT);
+                rico.refund(accounts[2], accounts[2].LIA);
 
-                assert.equal(accounts[2].ICTL, 2000 * ethIctRatio / 2);
+                assert.equal(accounts[2].LIAL, 2000 * ethIctRatio / 2);
                 assert.equal(accounts[2].ETH, 2000 * ethIctRatio / 2);
 
                 sanityCheck(rico);
