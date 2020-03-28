@@ -107,7 +107,7 @@ RICO.prototype.refund = function(account, ict) {
     var ictl = Math.floor(ict * (1 - ratio));
 
     // update accounts balance
-    account.LIA -= ict;
+    account.LIA -= ict; // !! should be account.LIA -= ict - ictl;
     account.LIAL += ictl;
     account.ETH += eth;
 

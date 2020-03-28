@@ -364,24 +364,28 @@ describe('Refundable ICO', function() {
             ETH: 100,
             LIA: 0,
             LIAL: 0,
+            COMMITS: 0,
             RETURNS: 0,
             shouldBe: {}
         },{
             ETH: 200,
             LIA: 0,
             LIAL: 0,
+            COMMITS: 0,
             RETURNS: 0,
             shouldBe: {}
         },{
             ETH: 2000,
             LIA: 0,
             LIAL: 0,
+            COMMITS: 0,
             RETURNS: 0,
             shouldBe: {}
         },{
             ETH: 8000,
             LIA: 0,
             LIAL: 0,
+            COMMITS: 0,
             RETURNS: 0,
             shouldBe: {}
         }];
@@ -409,6 +413,11 @@ describe('Refundable ICO', function() {
                 rico.commit(accounts[1], 100);
                 rico.commit(accounts[2], 2000);
                 rico.commit(accounts[3], 7800);
+
+                accounts[0].COMMITS += 100;
+                accounts[1].COMMITS += 100;
+                accounts[2].COMMITS += 2000;
+                accounts[3].COMMITS += 7800;
 
                 sanityCheckAccounts(accounts);
                 sanityCheck(rico);
@@ -480,6 +489,8 @@ describe('Refundable ICO', function() {
                 // COMMIT
                 rico.commit(accounts[1], 50);
 
+                accounts[1].COMMITS += 50;
+
                 sanityCheckAccounts(accounts);
 
                 assert.equal(accounts[1].ETH, 50);
@@ -523,9 +534,9 @@ describe('Refundable ICO', function() {
                 accounts[2].shouldBe.LIA = accounts[2].LIA - accounts[2].LIA / ethIctRatio;
 
                 // REFUND all tokens
+                accounts[2].RETURNS += accounts[2].LIA;
                 rico.refund(accounts[2], accounts[2].LIA);
 
-                accounts[2].RETURNS += accounts[2].LIA;
 
                 assert.equal(accounts[2].LIAL, 2000 * ethIctRatio / 2);
                 assert.equal(accounts[2].ETH, 2000 * ethIctRatio / 2);
@@ -547,6 +558,8 @@ describe('Refundable ICO', function() {
 
                 // COMMIT
                 rico.commit(accounts[3], 275);
+
+                accounts[3].COMMITS += 275;
 
                 sanityCheckAccounts(accounts);
                 sanityCheck(rico);
@@ -650,6 +663,8 @@ describe('Refundable ICO', function() {
                 // COMMIT
                 rico.commit(accounts[3], 1000);
 
+                accounts[3].COMMITS += 1000;
+
 
                 sanityCheckAccounts(accounts);
                 sanityCheck(rico);
@@ -668,11 +683,12 @@ describe('Refundable ICO', function() {
                 // assert.equal(accounts[2].LIAL, accounts[2].LIA - accounts[2].RETURNS);
                 // assert.equal(accounts[3].LIAL, accounts[3].LIA - accounts[3].RETURNS);
 
+                console.log(accounts);
 
-                assert.equal(rico.flow, 12.16842105263158);
                 assert.equal(rico.investorETH, 0);
                 assert.equal(rico.projectETH, 8789);
                 assert.equal(rico.REALETH, 8789);
+                assert.equal(rico.flow, 12.16842105263158);
 
                 sanityCheck(rico);
 
